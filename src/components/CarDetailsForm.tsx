@@ -103,8 +103,6 @@ const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
   const onCarInputPropChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
-    console.log(event.target.name, event.target.value);
-
     if (event.target.name === "make") {
       dispatch(loadModelInformations(event.target.value as string));
       setCarInputValues({

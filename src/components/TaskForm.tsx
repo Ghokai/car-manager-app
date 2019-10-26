@@ -62,7 +62,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
   const onTaskInputPropChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
-    // console.log(event);
     setNewTaskInput({
       ...newTaskInput,
       [event.target.name || ""]: event.target.value
@@ -78,7 +77,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
       setNewTaskInputError("Comment is  required!");
       return;
     }
-    console.log(newTaskInput);
     dispatch(createTaskAction(carId, newTaskInput));
     setNewTaskInput(getEmptyTaskInput());
     setNewTaskInputError("");

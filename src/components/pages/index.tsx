@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./Home";
-import CarInformationsPage from "./CarInformationsPage";
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "../Header";
+import CarInformationsPage from "./CarInformationsPage";
+import Home from "./Home";
 
-export default function Routes() {
+const Routes: React.FC = (): React.ReactElement => {
   return (
     <Router>
       <Header></Header>
@@ -16,4 +16,5 @@ export default function Routes() {
       />
     </Router>
   );
-}
+};
+export default Routes;

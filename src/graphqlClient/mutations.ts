@@ -17,8 +17,6 @@ const setNullFields = (values: object) => {
 export const getUpdateCarMutation = (carInput: CarInput) => {
   const obj: LooseObject = setNullFields(carInput);
 
-  console.log(obj);
-
   return {
     mutation: gql`
       mutation updateCar($car: CarInput) {

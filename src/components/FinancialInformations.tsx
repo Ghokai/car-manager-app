@@ -1,23 +1,20 @@
-import React from "react";
-
 import {
-  Button,
-  Grid,
+  Card,
+  CardActionArea,
+  CardMedia,
   Chip,
   Container,
-  Paper,
-  makeStyles,
-  Theme,
   createStyles,
-  Card,
-  CardMedia,
-  CardActionArea,
+  Grid,
   List,
   ListItem,
-  ListItemText
+  makeStyles,
+  Paper,
+  Theme
 } from "@material-ui/core";
-import Alert from "./Alert";
+import React from "react";
 import { FinancialDetails } from "../models/FinancialDetails";
+import Alert from "./Alert";
 
 const carImagePlaceHolder: string =
   "https://user-images.githubusercontent.com/11095906/67610755-25ed3080-f795-11e9-979b-6715656fb82d.png";
@@ -103,7 +100,7 @@ const FinancialInformations: React.FC<FinancialInformationsProps> = ({
                       <List dense={true}>
                         <ListItem className={classes.listItem}>
                           <h5 className={classes.listHeader}>
-                            Purchase Price:{" "}
+                            Purchase Price:
                           </h5>
                           <span>
                             {purchasePrice
@@ -112,14 +109,12 @@ const FinancialInformations: React.FC<FinancialInformationsProps> = ({
                           </span>
                         </ListItem>
                         <ListItem className={classes.listItem}>
-                          <h5 className={classes.listHeader}>
-                            Purchase Date:{" "}
-                          </h5>
+                          <h5 className={classes.listHeader}>Purchase Date:</h5>
                           <span>{purchaseDate.split("T")[0]}</span>
                         </ListItem>
                         <ListItem className={classes.listItem}>
                           <h5 className={classes.listHeader}>
-                            Purchase Location:{" "}
+                            Purchase Location:
                           </h5>
                           <span>{purchaseLocation}</span>
                         </ListItem>
@@ -135,9 +130,7 @@ const FinancialInformations: React.FC<FinancialInformationsProps> = ({
                     <Grid item xs={6}>
                       <List dense={true}>
                         <ListItem className={classes.listItem}>
-                          <h5 className={classes.listHeader}>
-                            Selling Price:{" "}
-                          </h5>
+                          <h5 className={classes.listHeader}>Selling Price:</h5>
                           <span>
                             {sellingPrice
                               .toFixed(2)
@@ -150,7 +143,7 @@ const FinancialInformations: React.FC<FinancialInformationsProps> = ({
                         </ListItem>
                         <ListItem className={classes.listItem}>
                           <h5 className={classes.listHeader}>
-                            Selling Location:{" "}
+                            Selling Location:
                           </h5>
                           <span>{sellingLocation}</span>
                         </ListItem>

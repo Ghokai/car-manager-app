@@ -46,7 +46,6 @@ const CarInformationsPage: React.FC = (): React.ReactElement => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(carId);
     if (carId) {
       dispatch(loadCarDetailsAction(carId));
       dispatch(loadCarTasksAction(carId));
