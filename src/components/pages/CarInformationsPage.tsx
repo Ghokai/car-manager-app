@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     loader: {
       marginTop: "100px"
+    },
+    alert: {
+      margin: theme.spacing(4),
+      flex: 1,
+      padding: "24px!important"
     }
   })
 );
@@ -55,7 +60,11 @@ const CarInformationsPage: React.FC = (): React.ReactElement => {
   }
   if (!car) {
     return (
-      <Alert variant="error" message="Car Informations could not found!" />
+      <Alert
+        className={classes.alert}
+        variant="error"
+        message="Car Informations could not found!"
+      />
     );
   }
 
