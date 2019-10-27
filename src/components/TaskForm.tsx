@@ -107,7 +107,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
         <Button
           variant="contained"
           onClick={onCreateTask}
-          color="primary"
+          color="secondary"
           className={classes.button}
         >
           Create Task

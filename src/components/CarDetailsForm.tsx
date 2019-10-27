@@ -228,7 +228,7 @@ const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
               <Button
                 variant="contained"
                 onClick={onSave}
-                color="primary"
+                color="secondary"
                 className={classes.button}
               >
                 Update Car Informations

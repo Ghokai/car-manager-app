@@ -69,7 +69,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
               <Chip color="primary" label="Add New Task" />
               <TaskForm carId={carId}></TaskForm>
               <Fab
-                color="primary"
+                color="secondary"
                 aria-label="add"
                 onClick={handleModalOpen}
                 className={classes.fab}

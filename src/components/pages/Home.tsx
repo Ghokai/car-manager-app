@@ -51,7 +51,7 @@ const Home: React.FC = (): React.ReactElement => {
             variant="contained"
             onClick={gotoCarDetails}
             className={classes.button}
-            color="primary"
+            color="secondary"
           >
             Get Car Informations
           </Button>

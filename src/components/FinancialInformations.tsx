@@ -1,7 +1,4 @@
 import {
-  Card,
-  CardActionArea,
-  CardMedia,
   Chip,
   Container,
   createStyles,
@@ -15,9 +12,7 @@ import {
 import React from "react";
 import { FinancialDetails } from "../models/FinancialDetails";
 import Alert from "./Alert";
-
-const carImagePlaceHolder: string =
-  "https://user-images.githubusercontent.com/11095906/67610755-25ed3080-f795-11e9-979b-6715656fb82d.png";
+import CarImage from "./CarImage";
 
 type FinancialInformationsProps = { financialDetails: FinancialDetails };
 
@@ -36,12 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper
-    },
-    card: {
-      maxWidth: 450
-    },
-    media: {
-      height: 200
     },
     content: {
       marginTop: theme.spacing(2)
@@ -81,20 +70,12 @@ const FinancialInformations: React.FC<FinancialInformationsProps> = ({
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <Chip color="primary" label="Financial Details" />
               <Grid container className={classes.content}>
                 <Grid item xs={6}>
-                  <Card className={classes.card}>
-                    <CardActionArea>
-                      <CardMedia
-                        className={classes.media}
-                        image={carImagePlaceHolder}
-                        title="Car Image"
-                      />
-                    </CardActionArea>
-                  </Card>
+                  <CarImage></CarImage>
                 </Grid>
                 <Grid item xs={6}>
+                  <Chip color="primary" label="Financial Informations" />
                   <Grid container className={classes.content}>
                     <Grid item xs={6}>
                       <List dense={true}>
