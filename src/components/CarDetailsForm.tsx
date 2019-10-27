@@ -96,7 +96,7 @@ const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
         dispatch(loadTrimInformations(carInput.make, carInput.model));
       }
     }
-  }, [carInput]);
+  }, [carInput, dispatch]);
 
   const classes = useStyles();
 

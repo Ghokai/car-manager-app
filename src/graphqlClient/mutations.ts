@@ -65,7 +65,6 @@ export const getCreateTaskMutation = (carId: string, taskInput: TaskInput) => {
 };
 
 export const getUpdateTaskMutation = (taskId: string, completed: boolean) => {
-  console.log(taskId, completed);
   return {
     mutation: gql`
       mutation updateTask($id: ID!, $completed: Boolean!) {

@@ -53,7 +53,7 @@ const CarInformationsPage: React.FC = (): React.ReactElement => {
       dispatch(loadCarInformationsAction(carId));
       dispatch(loadCarTasksAction(carId));
     }
-  }, [carId]);
+  }, [carId, dispatch]);
 
   if (isLoading) {
     return <CircularProgress className={classes.loader}></CircularProgress>;

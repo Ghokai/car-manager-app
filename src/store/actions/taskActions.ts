@@ -1,7 +1,10 @@
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { getApolloClient } from "../../graphqlClient";
-import { getCreateTaskMutation, getUpdateTaskMutation } from "../../graphqlClient/mutations";
+import {
+  getCreateTaskMutation,
+  getUpdateTaskMutation
+} from "../../graphqlClient/mutations";
 import { getCarTasksQuery } from "../../graphqlClient/queries";
 import { Task, TaskInput } from "../../models/Task";
 
@@ -77,10 +80,7 @@ export const updateTaskAction = (taskId: string, completed: boolean) => async (
   dispatch(taskProcessLoadingAction);
 
   try {
-    const response = await getApolloClient().mutate(
-      getUpdateTaskMutation(taskId, completed)
-    );
-    console.log(response);
+    await getApolloClient().mutate(getUpdateTaskMutation(taskId, completed));
 
     const updateTaskAction: TASK_UPDATE_SUCCESS_ACTON = {
       type: TASK_UPDATE_SUCCESS_ACTON_TYPE,
@@ -106,7 +106,6 @@ export const createTaskAction = (carId: string, taskInput: TaskInput) => async (
     const response = await getApolloClient().mutate(
       getCreateTaskMutation(carId, taskInput)
     );
-    console.log(response);
     const taskCreateSuccessAction: TASK_CREATE_SUCCESS_ACTON = {
       type: TASK_CREATE_SUCCESS_ACTON_TYPE,
       payload: {
