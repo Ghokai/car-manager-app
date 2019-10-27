@@ -1,8 +1,8 @@
 import { Dispatch } from "redux";
 import { getApolloClient } from "../../graphqlClient";
 import {
-  getUpdateTaskMutation,
-  getCreateTaskMutation
+  getCreateTaskMutation,
+  getUpdateTaskMutation
 } from "../../graphqlClient/mutations";
 import { getCarTasksQuery } from "../../graphqlClient/queries";
 import { Task, TaskInput } from "../../models/Task";

@@ -85,7 +85,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
 
   return (
     <>
-      <br />
       <DropdownMenu
         label="Task Type"
         options={convertEnumDisplayType2KeyValueOption(TaskTypeDisplay)}

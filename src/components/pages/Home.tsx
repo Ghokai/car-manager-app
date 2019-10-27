@@ -1,14 +1,6 @@
+import { Button, Container, createStyles, Grid, makeStyles, TextField, Theme } from "@material-ui/core";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  TextField,
-  Button,
-  Container,
-  Grid
-} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const sampleCarId = "aef2d540-5d7d-4152-bb38-d987bb24b81a";
 const useStyles = makeStyles((theme: Theme) =>

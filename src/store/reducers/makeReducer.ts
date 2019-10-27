@@ -4,7 +4,6 @@ import {
   LOAD_MAKE_INFORMATIONS_SUCCESS_ACTION_TYPE
 } from "../actions/makeActions";
 import { Action } from "../index";
-import { Car } from "../../models/Car";
 
 type makeReducerState = { makeList: []; isLoading: boolean; error: string };
 

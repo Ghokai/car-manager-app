@@ -4,7 +4,6 @@ import {
   LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE
 } from "../actions/modelActions";
 import { Action } from "../index";
-import { Car } from "../../models/Car";
 
 type modelReducerState = { modelList: []; isLoading: boolean; error: string };
 

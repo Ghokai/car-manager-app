@@ -4,7 +4,6 @@ import {
   LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE
 } from "../actions/trimActions";
 import { Action } from "../index";
-import { Car } from "../../models/Car";
 
 type trimReducerState = {
   trimList: string[];

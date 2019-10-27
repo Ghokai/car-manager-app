@@ -87,7 +87,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle>
-          <Typography variant="h6">New Task</Typography>
+          <Chip color="primary" label="Add New Task" />
           <IconButton
             aria-label="close"
             className={classes.closeButton}
