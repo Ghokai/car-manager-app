@@ -1,59 +1,56 @@
-import { getApolloClient } from "../../graphqlClient";
+import { toast } from "react-toastify";
 import { Dispatch } from "redux";
+import { getApolloClient } from "../../graphqlClient";
 import { getTrimQuery } from "../../graphqlClient/queries";
 
-export const LOAD_TRIM_INFORMATIONS_LOADING_ACTION_TYPE =
-  "LOAD_TRIM_INFORMATIONS_LOADING_ACTION";
-export const LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE =
-  "LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION";
-export const LOAD_TRIM_INFORMATIONS_ERROR_ACTION_TYPE =
-  "LOAD_TRIM_INFORMATIONS_ERROR_ACTION";
+export const TRIM_INFORMATIONS_LOADING_ACTION_TYPE =
+  "TRIM_INFORMATIONS_LOADING_ACTION";
+export const TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE =
+  "TRIM_INFORMATIONS_SUCCESS_ACTION";
+export const TRIM_INFORMATIONS_ERROR_ACTION_TYPE =
+  "TRIM_INFORMATIONS_ERROR_ACTION";
 
-export type LOAD_TRIM_INFORMATIONS_LOADING_ACTION = {
+export type TRIM_INFORMATIONS_LOADING_ACTION = {
   type: string;
 };
 
-export type LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION = {
+export type TRIM_INFORMATIONS_SUCCESS_ACTION = {
   type: string;
   payload: string[];
 };
 
-export type LOAD_TRIM_INFORMATIONS_ERROR_ACTION = {
+export type TRIM_INFORMATIONS_ERROR_ACTION = {
   type: string;
   payload: string;
 };
 
-export type TRIM_ACTIONS =
-  | LOAD_TRIM_INFORMATIONS_LOADING_ACTION
-  | LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION
-  | LOAD_TRIM_INFORMATIONS_ERROR_ACTION;
-
 export const clearTrimInformations = () => ({
-  type: LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE,
+  type: TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE,
   payload: []
 });
 
 export const loadTrimInformations = (make: string, model: string) => async (
   dispatch: Dispatch
 ) => {
-  const loadingAction: LOAD_TRIM_INFORMATIONS_LOADING_ACTION = {
-    type: LOAD_TRIM_INFORMATIONS_LOADING_ACTION_TYPE
+  const trimInformatiosLoadingAction: TRIM_INFORMATIONS_LOADING_ACTION = {
+    type: TRIM_INFORMATIONS_LOADING_ACTION_TYPE
   };
-  dispatch(loadingAction);
+  dispatch(trimInformatiosLoadingAction);
   try {
     const response = await getApolloClient().query(getTrimQuery(make, model));
 
-    const loadSuccessAction: LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION = {
-      type: LOAD_TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE,
+    const trimInformationSuccessAction: TRIM_INFORMATIONS_SUCCESS_ACTION = {
+      type: TRIM_INFORMATIONS_SUCCESS_ACTION_TYPE,
       payload: response.data.trim
     };
-    dispatch(loadSuccessAction);
+    dispatch(trimInformationSuccessAction);
   } catch (error) {
     console.log(error);
-    const loadErrorAction: LOAD_TRIM_INFORMATIONS_ERROR_ACTION = {
-      type: LOAD_TRIM_INFORMATIONS_ERROR_ACTION_TYPE,
-      payload: "Error!!!"
+    const trimInformationsErrorAction: TRIM_INFORMATIONS_ERROR_ACTION = {
+      type: TRIM_INFORMATIONS_ERROR_ACTION_TYPE,
+      payload: "Trim Informations Error"
     };
-    dispatch(loadErrorAction);
+    dispatch(trimInformationsErrorAction);
+    toast.error("Error occured while trim informations fetching!");
   }
 };

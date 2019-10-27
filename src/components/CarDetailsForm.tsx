@@ -11,7 +11,7 @@ import { AppState } from "../store";
 import { loadMakeInformations } from "../store/actions/makeActions";
 import { loadModelInformations } from "../store/actions/modelActions";
 import { loadTrimInformations } from "../store/actions/trimActions";
-import { updateCarAction } from "../store/actions/carActions";
+import { updateCarInformationsAction } from "../store/actions/carActions";
 import Alert from "./Alert";
 import DropdownMenu, {
   convertEnumDisplayType2KeyValueOption,
@@ -33,11 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "left",
       color: theme.palette.text.secondary,
       height: "100%"
-    },
-    list: {
-      width: "100%",
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper
     },
     paperBottom: {
       display: "flex",
@@ -147,7 +142,7 @@ const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
       setFormError("Trim is required Field");
       return;
     }
-    dispatch(updateCarAction(carInputValues));
+    dispatch(updateCarInformationsAction(carInputValues));
   };
 
   return (

@@ -14,6 +14,7 @@ import { Task } from "../models/Task";
 import { TaskTypeDisplay, TaskType } from "../models/TaskType";
 import { AppState } from "../store";
 import { updateTaskAction } from "../store/actions/taskActions";
+import Alert from "./Alert";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +30,11 @@ const useStyles = makeStyles((theme: Theme) =>
     comment: {
       fontSize: "12px",
       fontWeight: "normal"
+    },
+    alert: {
+      margin: theme.spacing(1),
+      flex: 1,
+      padding: "0px 16px!important"
     }
   })
 );
@@ -37,13 +43,21 @@ const TaskList: React.FC = (): React.ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { tasks, isLoading, error } = useSelector(
-    (state: AppState) => state.taskState
-  );
+  const { tasks } = useSelector((state: AppState) => state.taskState);
 
   const updateTask = (task: Task) => {
     dispatch(updateTaskAction(task.id, !task.completed));
   };
+
+  if (tasks.length === 0) {
+    return (
+      <Alert
+        variant="info"
+        className={classes.alert}
+        message="There is no task exist for car"
+      />
+    );
+  }
 
   return (
     <List className={classes.root}>

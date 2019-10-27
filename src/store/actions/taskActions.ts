@@ -1,130 +1,124 @@
+import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { getApolloClient } from "../../graphqlClient";
-import {
-  getCreateTaskMutation,
-  getUpdateTaskMutation
-} from "../../graphqlClient/mutations";
+import { getCreateTaskMutation, getUpdateTaskMutation } from "../../graphqlClient/mutations";
 import { getCarTasksQuery } from "../../graphqlClient/queries";
 import { Task, TaskInput } from "../../models/Task";
 
-export const LOAD_TASK_DETAILS_LOADING_ACTION_TYPE =
-  "LOAD_TASK_DETAILS_LOADING_ACTION";
-export const LOAD_TASK_DETAILS_SUCCESS_ACTION_TYPE =
-  "LOAD_TASK_DETAILS_SUCCESS_ACTION";
-export const LOAD_TASK_DETAILS_ERROR_ACTION_TYPE =
-  "LOAD_TASK_DETAILS_ERROR_ACTION";
+export const TASK_DETAILS_LOADING_ACTION_TYPE = "TASK_DETAILS_LOADING_ACTION";
+export const TASK_DETAILS_SUCCESS_ACTION_TYPE = "TASK_DETAILS_SUCCESS_ACTION";
+export const TASK_DETAILS_ERROR_ACTION_TYPE = "TASK_DETAILS_ERROR_ACTION";
 
-export const UPDATE_TASK_UPDATING_ACTION_TYPE = "UPDATE_TASK_UPDATING_ACTION";
-export const UPDATE_TASK_SUCCESS_ACTION_TYPE = "UPDATE_TASK_SUCCESS_ACTION";
+export const TASK_PROCESS_LOADING_ACTION_TYPE = "TASK_UPDATE_LOADING_ACTION";
+export const TASK_UPDATE_SUCCESS_ACTON_TYPE = "TASK_UPDATE_SUCCESS_ACTION";
+export const TASK_CREATE_SUCCESS_ACTON_TYPE = "TASK_CREATE_SUCCESS_ACTION";
 
-export type UPDATE_TASK_UPDATING_ACTION = {
+export type TASK_DETAILS_LOADING_ACTION = {
   type: string;
 };
 
-export type UPDATE_TASK_SUCCESS_ACTION = {
-  type: string;
-  payload: { id: string; completed: boolean };
-};
-
-export type LOAD_TASK_DETAILS_LOADING_ACTION = {
-  type: string;
-};
-
-export type LOAD_TASK_DETAILS_SUCCESS_ACTION = {
+export type TASK_DETAILS_SUCCESS_ACTION = {
   type: string;
   payload: Task[];
 };
 
-export type LOAD_TASK_DETAILS_ERROR_ACTION = {
+export type TASK_DETAILS_ERROR_ACTION = {
   type: string;
   payload: string;
 };
 
-export type TASK_ACTIONS =
-  | LOAD_TASK_DETAILS_LOADING_ACTION
-  | LOAD_TASK_DETAILS_SUCCESS_ACTION
-  | LOAD_TASK_DETAILS_ERROR_ACTION;
+export type TASK_PROCESS_LOADING_ACTION = {
+  type: string;
+};
+
+export type TASK_UPDATE_SUCCESS_ACTON = {
+  type: string;
+  payload: { id: string; completed: boolean };
+};
+
+export type TASK_CREATE_SUCCESS_ACTON = {
+  type: string;
+  payload: Task;
+};
 
 export const loadCarTasksAction = (carId: string) => async (
   dispatch: Dispatch
 ) => {
-  const loadTaskDetailsLoading: LOAD_TASK_DETAILS_LOADING_ACTION = {
-    type: LOAD_TASK_DETAILS_LOADING_ACTION_TYPE
+  const taskDetailsLoadingAction: TASK_DETAILS_LOADING_ACTION = {
+    type: TASK_DETAILS_LOADING_ACTION_TYPE
   };
-  dispatch(loadTaskDetailsLoading);
+  dispatch(taskDetailsLoadingAction);
 
   try {
     const response = await getApolloClient().query(getCarTasksQuery(carId));
 
-    const loadTaskDetailsSuccess: LOAD_TASK_DETAILS_SUCCESS_ACTION = {
-      type: LOAD_TASK_DETAILS_SUCCESS_ACTION_TYPE,
+    const taskDetailsSuccessAction: TASK_DETAILS_SUCCESS_ACTION = {
+      type: TASK_DETAILS_SUCCESS_ACTION_TYPE,
       payload: response.data.tasks
     };
-    dispatch(loadTaskDetailsSuccess);
+    dispatch(taskDetailsSuccessAction);
   } catch (error) {
     console.log(error);
-    const loadTaskDetailsError: LOAD_TASK_DETAILS_ERROR_ACTION = {
-      type: LOAD_TASK_DETAILS_ERROR_ACTION_TYPE,
-      payload: "HATAA!!!"
+    const taskDetailsErrorAction: TASK_DETAILS_ERROR_ACTION = {
+      type: TASK_DETAILS_ERROR_ACTION_TYPE,
+      payload: "Task Details Error Action"
     };
-    dispatch(loadTaskDetailsError);
+    dispatch(taskDetailsErrorAction);
+    toast.error("Error occured while task informations are fetching!");
   }
 };
 
 export const updateTaskAction = (taskId: string, completed: boolean) => async (
   dispatch: Dispatch
 ) => {
-  const taskUpdatingAction: UPDATE_TASK_UPDATING_ACTION = {
-    type: UPDATE_TASK_UPDATING_ACTION_TYPE
+  const taskProcessLoadingAction: TASK_PROCESS_LOADING_ACTION = {
+    type: TASK_PROCESS_LOADING_ACTION_TYPE
   };
-  dispatch(taskUpdatingAction);
+  dispatch(taskProcessLoadingAction);
 
   try {
     const response = await getApolloClient().mutate(
       getUpdateTaskMutation(taskId, completed)
     );
+    console.log(response);
 
-    const updateTaskAction: UPDATE_TASK_SUCCESS_ACTION = {
-      type: UPDATE_TASK_SUCCESS_ACTION_TYPE,
+    const updateTaskAction: TASK_UPDATE_SUCCESS_ACTON = {
+      type: TASK_UPDATE_SUCCESS_ACTON_TYPE,
       payload: { id: taskId, completed }
     };
     dispatch(updateTaskAction);
+    toast.success("Task updated successfully!");
   } catch (error) {
     console.log(error);
-    const loadTaskDetailsError: LOAD_TASK_DETAILS_ERROR_ACTION = {
-      type: LOAD_TASK_DETAILS_ERROR_ACTION_TYPE,
-      payload: "HATAA!!!"
-    };
-    dispatch(loadTaskDetailsError);
+    toast.error("Error occured while task is updating!");
   }
 };
 
 export const createTaskAction = (carId: string, taskInput: TaskInput) => async (
   dispatch: Dispatch
 ) => {
-  const loadTaskDetailsLoading: LOAD_TASK_DETAILS_LOADING_ACTION = {
-    type: LOAD_TASK_DETAILS_LOADING_ACTION_TYPE
+  const taskProcessLoadingAction: TASK_PROCESS_LOADING_ACTION = {
+    type: TASK_PROCESS_LOADING_ACTION_TYPE
   };
-  dispatch(loadTaskDetailsLoading);
+  dispatch(taskProcessLoadingAction);
 
   try {
-    const responseId = await getApolloClient().mutate(
+    const response = await getApolloClient().mutate(
       getCreateTaskMutation(carId, taskInput)
     );
-
-    const response = await getApolloClient().query(getCarTasksQuery(carId));
     console.log(response);
-    const loadTaskDetailsSuccess: LOAD_TASK_DETAILS_SUCCESS_ACTION = {
-      type: LOAD_TASK_DETAILS_SUCCESS_ACTION_TYPE,
-      payload: response.data.tasks
+    const taskCreateSuccessAction: TASK_CREATE_SUCCESS_ACTON = {
+      type: TASK_CREATE_SUCCESS_ACTON_TYPE,
+      payload: {
+        ...taskInput,
+        id: response.data.createTask,
+        completed: false
+      }
     };
-    dispatch(loadTaskDetailsSuccess);
+    dispatch(taskCreateSuccessAction);
+    toast.success("Task created successfully!");
   } catch (error) {
     console.log(error);
-    const loadTaskDetailsError: LOAD_TASK_DETAILS_ERROR_ACTION = {
-      type: LOAD_TASK_DETAILS_ERROR_ACTION_TYPE,
-      payload: "Hata!!!"
-    };
-    dispatch(loadTaskDetailsError);
+    toast.error("Error occured while task is creating!");
   }
 };

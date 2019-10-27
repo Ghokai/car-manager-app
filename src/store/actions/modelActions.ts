@@ -1,59 +1,56 @@
-import { getApolloClient } from "../../graphqlClient";
+import { toast } from "react-toastify";
 import { Dispatch } from "redux";
+import { getApolloClient } from "../../graphqlClient";
 import { getModelQuery } from "../../graphqlClient/queries";
 
-export const LOAD_MODEL_INFORMATIONS_LOADING_ACTION_TYPE =
-  "LOAD_MODEL_INFORMATIONS_LOADING_ACTION";
-export const LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE =
-  "LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION";
-export const LOAD_MODEL_INFORMATIONS_ERROR_ACTION_TYPE =
-  "LOAD_MODEL_INFORMATIONS_ERROR_ACTION";
+export const MODEL_INFORMATIONS_LOADING_ACTION_TYPE =
+  "MODEL_INFORMATIONS_LOADING_ACTION";
+export const MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE =
+  "MODEL_INFORMATIONS_SUCCESS_ACTION";
+export const MODEL_INFORMATIONS_ERROR_ACTION_TYPE =
+  "MODEL_INFORMATIONS_ERROR_ACTION";
 
-export type LOAD_MODEL_INFORMATIONS_LOADING_ACTION = {
+export type MODEL_INFORMATIONS_LOADING_ACTION = {
   type: string;
 };
 
-export type LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION = {
+export type MODEL_INFORMATIONS_SUCCESS_ACTION = {
   type: string;
   payload: string[];
 };
 
-export type LOAD_MODEL_INFORMATIONS_ERROR_ACTION = {
+export type MODEL_INFORMATIONS_ERROR_ACTION = {
   type: string;
   payload: string;
 };
 
-export type MODEL_ACTIONS =
-  | LOAD_MODEL_INFORMATIONS_LOADING_ACTION
-  | LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION
-  | LOAD_MODEL_INFORMATIONS_ERROR_ACTION;
-
 export const clearModelInformations = () => ({
-  type: LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE,
+  type: MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE,
   payload: []
 });
 
 export const loadModelInformations = (make: string) => async (
   dispatch: Dispatch
 ) => {
-  const loadingAction: LOAD_MODEL_INFORMATIONS_LOADING_ACTION = {
-    type: LOAD_MODEL_INFORMATIONS_LOADING_ACTION_TYPE
+  const modelInformationsLoadingAction: MODEL_INFORMATIONS_LOADING_ACTION = {
+    type: MODEL_INFORMATIONS_LOADING_ACTION_TYPE
   };
-  dispatch(loadingAction);
+  dispatch(modelInformationsLoadingAction);
   try {
     const response = await getApolloClient().query(getModelQuery(make));
 
-    const loadSuccessAction: LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION = {
-      type: LOAD_MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE,
+    const modelInformationsSuccessAction: MODEL_INFORMATIONS_SUCCESS_ACTION = {
+      type: MODEL_INFORMATIONS_SUCCESS_ACTION_TYPE,
       payload: response.data.model
     };
-    dispatch(loadSuccessAction);
+    dispatch(modelInformationsSuccessAction);
   } catch (error) {
     console.log(error);
-    const loadErrorAction: LOAD_MODEL_INFORMATIONS_ERROR_ACTION = {
-      type: LOAD_MODEL_INFORMATIONS_ERROR_ACTION_TYPE,
-      payload: "Error!!!"
+    const modelInformationsErrorAction: MODEL_INFORMATIONS_ERROR_ACTION = {
+      type: MODEL_INFORMATIONS_ERROR_ACTION_TYPE,
+      payload: "Model Informations Error"
     };
-    dispatch(loadErrorAction);
+    dispatch(modelInformationsErrorAction);
+    toast.error("Error occured while model informations fetching!");
   }
 };

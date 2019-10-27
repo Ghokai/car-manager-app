@@ -1,25 +1,25 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loadCarDetailsAction } from "../../store/actions/carActions";
-import { loadCarTasksAction } from "../../store/actions/taskActions";
-import CarDetailsForm from "../CarDetailsForm";
-import FinancialInformations from "../FinancialInformations";
-import { AppState } from "../../store";
-import TaskDetails from "../TaskDetails";
 import {
+  Chip,
+  CircularProgress,
+  Container,
+  createStyles,
   Divider,
   Grid,
-  Tabs,
-  Tab,
   makeStyles,
-  Chip,
-  Theme,
-  createStyles,
-  Container,
-  CircularProgress
+  Tab,
+  Tabs,
+  Theme
 } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { AppState } from "../../store";
+import { loadCarInformationsAction } from "../../store/actions/carActions";
+import { loadCarTasksAction } from "../../store/actions/taskActions";
 import Alert from "../Alert";
+import CarDetailsForm from "../CarDetailsForm";
+import FinancialInformations from "../FinancialInformations";
+import TaskDetails from "../TaskDetails";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,13 +41,11 @@ const CarInformationsPage: React.FC = (): React.ReactElement => {
     setTab(newTab);
   };
   const { carId } = useParams();
-  const { car, error, isLoading } = useSelector(
-    (state: AppState) => state.carState
-  );
+  const { car, isLoading } = useSelector((state: AppState) => state.carState);
   const dispatch = useDispatch();
   useEffect(() => {
     if (carId) {
-      dispatch(loadCarDetailsAction(carId));
+      dispatch(loadCarInformationsAction(carId));
       dispatch(loadCarTasksAction(carId));
     }
   }, [carId]);

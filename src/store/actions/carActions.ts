@@ -1,85 +1,84 @@
+import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { getApolloClient } from "../../graphqlClient";
 import { getUpdateCarMutation } from "../../graphqlClient/mutations";
 import { getCarDetailsQuery } from "../../graphqlClient/queries";
 import { Car, CarInput } from "../../models/Car";
 
-export const LOAD_CAR_DETAILS_LOADING_ACTION_TYPE =
-  "LOAD_CAR_DETAILS_LOADING_ACTION";
-export const LOAD_CAR_DETAILS_SUCCESS_ACTION_TYPE =
-  "LOAD_CAR_DETAILS_SUCCESS_ACTION";
-export const LOAD_CAR_DETAILS_ERROR_ACTION_TYPE =
-  "LOAD_CAR_DETAILS_ERROR_ACTION";
+export const CAR_INFORMATIONS_LOADING_ACTION_TYPE =
+  "CAR_INFORMATIONS_LOADING_ACTION";
+export const CAR_INFORMATIONS_LOADING_SUCCESS_ACTION_TYPE =
+  "CAR_INFORMATIONS_LOADING_SUCCESS_ACTION";
+export const CAR_INFORMATIONS_LOADING_ERROR_ACTION_TYPE =
+  "CAR_INFORMATIONS_LOADING_SUCCESS_ACTION";
 
-export type LOAD_CAR_DETAILS_LOADING_ACTION = {
+export type CAR_INFORMATIONS_LOADING_ACTION = {
   type: string;
 };
 
-export type LOAD_CAR_DETAILS_SUCCESS_ACTION = {
+export type CAR_INFORMATIONS_LOADING_SUCCESS_ACTION = {
   type: string;
   payload: Car;
 };
 
-export type LOAD_CAR_DETAILS_ERROR_ACTION = {
+export type CAR_INFORMATIONS_LOADING_ERROR_ACTION = {
   type: string;
   payload: string;
 };
 
-export type CAR_ACTIONS =
-  | LOAD_CAR_DETAILS_LOADING_ACTION
-  | LOAD_CAR_DETAILS_SUCCESS_ACTION
-  | LOAD_CAR_DETAILS_ERROR_ACTION;
-
-export const loadCarDetailsAction = (carId: string) => async (
+export const loadCarInformationsAction = (carId: string) => async (
   dispatch: Dispatch
 ) => {
-  const loadCarDetailsLoading: LOAD_CAR_DETAILS_LOADING_ACTION = {
-    type: LOAD_CAR_DETAILS_LOADING_ACTION_TYPE
+  const carInformationsLoading: CAR_INFORMATIONS_LOADING_ACTION = {
+    type: CAR_INFORMATIONS_LOADING_ACTION_TYPE
   };
-  dispatch(loadCarDetailsLoading);
+  dispatch(carInformationsLoading);
 
   try {
     const response = await getApolloClient().query(getCarDetailsQuery(carId));
 
-    const loadCarDetailsSuccess: LOAD_CAR_DETAILS_SUCCESS_ACTION = {
-      type: LOAD_CAR_DETAILS_SUCCESS_ACTION_TYPE,
+    const carInformationsLoadingSuccess: CAR_INFORMATIONS_LOADING_SUCCESS_ACTION = {
+      type: CAR_INFORMATIONS_LOADING_SUCCESS_ACTION_TYPE,
       payload: response.data.car
     };
-    dispatch(loadCarDetailsSuccess);
+    dispatch(carInformationsLoadingSuccess);
   } catch (error) {
     console.log(error);
-    const loadCarDetailsError: LOAD_CAR_DETAILS_ERROR_ACTION = {
-      type: LOAD_CAR_DETAILS_ERROR_ACTION_TYPE,
-      payload: "HATAA!!!"
+    const carInformationsLoadingError: CAR_INFORMATIONS_LOADING_ERROR_ACTION = {
+      type: CAR_INFORMATIONS_LOADING_ERROR_ACTION_TYPE,
+      payload: "Car Informations Error!"
     };
-    dispatch(loadCarDetailsError);
+    dispatch(carInformationsLoadingError);
+    toast.error("Error occured while car informations fetching!");
   }
 };
 
-export const updateCarAction = (carInput: CarInput) => async (
+export const updateCarInformationsAction = (carInput: CarInput) => async (
   dispatch: Dispatch
 ) => {
-  const loadCarDetailsLoading: LOAD_CAR_DETAILS_LOADING_ACTION = {
-    type: LOAD_CAR_DETAILS_LOADING_ACTION_TYPE
+  const carInformationsLoading: CAR_INFORMATIONS_LOADING_ACTION = {
+    type: CAR_INFORMATIONS_LOADING_ACTION_TYPE
   };
-  dispatch(loadCarDetailsLoading);
+  dispatch(carInformationsLoading);
 
   try {
     const response = await getApolloClient().mutate(
       getUpdateCarMutation(carInput)
     );
 
-    const loadCarDetailsSuccess: LOAD_CAR_DETAILS_SUCCESS_ACTION = {
-      type: LOAD_CAR_DETAILS_SUCCESS_ACTION_TYPE,
+    const loadCarDetailsSuccess: CAR_INFORMATIONS_LOADING_SUCCESS_ACTION = {
+      type: CAR_INFORMATIONS_LOADING_SUCCESS_ACTION_TYPE,
       payload: response.data.updateCar
     };
     dispatch(loadCarDetailsSuccess);
+    toast.success("Car informations updated!");
   } catch (error) {
     console.log(error);
-    const loadCarDetailsError: LOAD_CAR_DETAILS_ERROR_ACTION = {
-      type: LOAD_CAR_DETAILS_ERROR_ACTION_TYPE,
-      payload: "Error!!!"
+    const loadCarDetailsError: CAR_INFORMATIONS_LOADING_ERROR_ACTION = {
+      type: CAR_INFORMATIONS_LOADING_ERROR_ACTION_TYPE,
+      payload: "Car Update Error"
     };
     dispatch(loadCarDetailsError);
+    toast.error("Error occured while car informations updating!");
   }
 };
