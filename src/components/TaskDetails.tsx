@@ -1,17 +1,16 @@
 import {
   Chip,
   Container,
-  Grid,
-  Paper,
-  Fab,
   Dialog,
   DialogContent,
   DialogTitle,
+  Fab,
+  Grid,
   IconButton,
-  Typography
+  Paper
 } from "@material-ui/core";
-import { Add, Close } from "@material-ui/icons";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Add, Close } from "@material-ui/icons";
 import React, { useState } from "react";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     fab: {
       float: "right",
-      top: "20px"
+      top: "50px"
     },
     dialog: {
       width: "500px"

@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(1),
       textAlign: "left",
-      color: theme.palette.text.secondary
+      color: theme.palette.text.secondary,
+      height: "100%"
     },
     list: {
       width: "100%",
@@ -40,12 +41,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paperBottom: {
       display: "flex",
-      padding: theme.spacing(1)
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1)
     },
     alert: {
       margin: theme.spacing(1),
       flex: 1,
       padding: "0px 16px!important"
+    },
+    gridBottom: {
+      padding: "10px 24px!important"
     }
   })
 );
@@ -223,7 +228,7 @@ const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
               ></DropdownMenu>
             </Paper>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.gridBottom}>
             <Paper className={classes.paperBottom}>
               <Button
                 variant="contained"
