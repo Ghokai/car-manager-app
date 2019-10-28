@@ -21,11 +21,13 @@ const Home: React.FC = (): React.ReactElement => {
   const classes = useStyles();
   const history = useHistory();
   const [carId, setCarId] = useState(sampleCarId);
+
   const gotoCarDetails = () => {
     if (carId.trim().length > 0) {
       history.push("/car-informations/" + carId);
     }
   };
+  
   return (
     <Container fixed>
       <Grid container spacing={6}>

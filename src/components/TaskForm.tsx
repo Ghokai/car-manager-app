@@ -54,10 +54,10 @@ type TaskFormProps = { carId: string };
 const TaskForm: React.FC<TaskFormProps> = ({
   carId
 }: TaskFormProps): React.ReactElement => {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const [newTaskInput, setNewTaskInput] = useState(getEmptyTaskInput());
-
   const [newTaskInputError, setNewTaskInputError] = useState("");
+  const [newTaskInput, setNewTaskInput] = useState(getEmptyTaskInput());
 
   const onTaskInputPropChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
@@ -81,7 +81,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
     setNewTaskInput(getEmptyTaskInput());
     setNewTaskInputError("");
   };
-  const classes = useStyles();
 
   return (
     <>

@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const TaskList: React.FC = (): React.ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const { tasks } = useSelector((state: AppState) => state.taskState);
 
   const updateTask = (task: Task) => {

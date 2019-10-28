@@ -49,7 +49,6 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
 }: TaskDetailsProps): React.ReactElement => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
-
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
 

@@ -66,16 +66,15 @@ const defaultCarInputValues: CarInput = {
 const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
   carInput
 }: CarDetailsFormProps): React.ReactElement => {
-  const [carInputValues, setCarInputValues] = useState(defaultCarInputValues);
+  const classes = useStyles();
+  const dispatch = useDispatch();
   const [formError, setFormError] = useState("");
-
+  const [carInputValues, setCarInputValues] = useState(defaultCarInputValues);
   const { makeList, modelList, trimList } = useSelector((state: AppState) => ({
     makeList: state.makeState.makeList,
     modelList: state.modelState.modelList,
     trimList: state.trimState.trimList
   }));
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setCarInputValues({
@@ -97,8 +96,6 @@ const CarDetailsForm: React.FC<CarDetailsFormProps> = ({
       }
     }
   }, [carInput, dispatch]);
-
-  const classes = useStyles();
 
   const onCarInputPropChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>

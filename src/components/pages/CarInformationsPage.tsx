@@ -41,19 +41,20 @@ const useStyles = makeStyles((theme: Theme) =>
 const CarInformationsPage: React.FC = (): React.ReactElement => {
   const classes = useStyles();
   const [tab, setTab] = React.useState(0);
-
-  const handleTabChange = (event: React.ChangeEvent<{}>, newTab: number) => {
-    setTab(newTab);
-  };
   const { carId } = useParams();
-  const { car, isLoading } = useSelector((state: AppState) => state.carState);
   const dispatch = useDispatch();
+  const { car, isLoading } = useSelector((state: AppState) => state.carState);
+
   useEffect(() => {
     if (carId) {
       dispatch(loadCarInformationsAction(carId));
       dispatch(loadCarTasksAction(carId));
     }
   }, [carId, dispatch]);
+
+  const handleTabChange = (event: React.ChangeEvent<{}>, newTab: number) => {
+    setTab(newTab);
+  };
 
   if (isLoading) {
     return <CircularProgress className={classes.loader}></CircularProgress>;
